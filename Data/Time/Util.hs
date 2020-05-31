@@ -15,4 +15,4 @@ toString' = toString (maybe "?" (:[]) . characterPrefix)
 parseTimeUsing :: (TextualMonoid t, TextualMonoid t') => [t] -> t' -> Maybe ZonedTime
 parseTimeUsing formats t = foldr (<|>) Nothing $ map parse formats
     where parse :: (TextualMonoid t) => t -> Maybe ZonedTime
-          parse format = parseTime defaultTimeLocale (toString' format) (toString' t)
+          parse format = parseTimeM True defaultTimeLocale (toString' format) (toString' t)
